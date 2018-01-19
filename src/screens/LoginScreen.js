@@ -8,8 +8,14 @@ class LoginScreen extends React.Component {
         password: '',
     }
 
-    hundleSubmit = () => {
-        this.props.navigation.navigate('Home');
+    handleSubmit = () => {
+        firebase.auth().signInWithEmailAndPassword(this.state.email, this.state.password)
+            .then(() => {
+                this.props.navigation.navigate('Home');
+            })
+            .catch((error) => {
+                console.log(error);
+            });
     }
 
     render() {

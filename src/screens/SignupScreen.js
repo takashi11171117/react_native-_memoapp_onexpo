@@ -1,14 +1,45 @@
 import React from 'react';
 import { StyleSheet, View, TextInput, TouchableHighlight, Text } from 'react-native';
+import firebase from 'firebase';
 
 class SignupScreen extends React.Component {
+    state = {
+        email: '',
+        password: '',
+    }
+
+    handleSubmit = () => {
+        firebase.auth().createUserWithEmailAndPassword(this.state.email, this.state.password)
+            .then(() => {
+                this.props.navigation.navigate('Home');
+            })
+            .catch((error) => {
+                console.log(error);
+            });
+    }
+
     render() {
         return (
             <View style={styles.container}>
                 <Text style={styles.title}>メンバー登録</Text>
-                <TextInput style={styles.input} value="Email Adderess" />
-                <TextInput style={styles.input} value="Password" />
-                <TouchableHighlight style={styles.button} onPress={() => {}} underlayColor="#c70f66">
+                <TextInput
+                    style={styles.input}
+                    value={this.state.email}
+                    onChangeText={(text) => { this.setState({ email: text }); }}
+                    autoCapitalize="none"
+                    autoCorrect={false}
+                    placeholder="Email Adderess"
+                />
+                <TextInput
+                    style={styles.input}
+                    value={this.state.password}
+                    onChangeText={(text) => { this.setState({ password: text }); }}
+                    autoCapitalize="none"
+                    autoCorrect={false}
+                    placeholder="Password"
+                    secureTextEntry
+                />
+                <TouchableHighlight style={styles.button} onPress={this.handleSubmit} underlayColor="#c70f66">
                     <Text style={styles.buttonTitle}>送信する</Text>
                 </TouchableHighlight>
             </View>
@@ -21,6 +52,7 @@ const styles = StyleSheet.create({
         flex: 1,
         width: '100%',
         padding: 24,
+        backgroundColor: '#fff',
     },
     input: {
         height: 48,

@@ -7,7 +7,7 @@ import MemoEditScreen from './src/screens/MemoEditScreen';
 import LoginScreen from './src/screens/LoginScreen';
 import SignupScreen from './src/screens/SignupScreen';
 
-import ENV from './env.json'
+import ENV from './env.json';
 
 const config = {
     apiKey:             ENV.FIREBASE_API_KEY,
